@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart – Paws & Claws Pet Store</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;800&family=Lato:ital@0;1&display=swap" rel="stylesheet">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="css/main.css">
+
+    <!-- Cart logic and main.js for badge, mobile menu -->
+    <script defer src="js/cart.js"></script>
+    <script defer src="js/main.js"></script>
+</head>
+<body>
+    <!-- ====== HEADER ====== -->
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="index.html" class="logo">🐾 Paws & Claws</a>
+            <nav class="main-nav" id="mainNav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <div class="view-toggle" id="viewToggle">
+                    <button data-view="auto" class="active">Auto</button>
+                    <button data-view="mobile">📱</button>
+                    <button data-view="tablet">📟</button>
+                    <button data-view="desktop">🖥️</button>
+                </div>
+                <a href="cart.html" class="cart-icon" aria-label="Cart">
+                    🛒 <span class="cart-badge" id="cartBadge">0</span>
+                </a>
+                <button class="menu-toggle" id="menuToggle" aria-label="Menu">☰</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ====== CART CONTENT ====== -->
+    <main>
+        <section class="cart-section">
+            <div class="container">
+                <h1>Your Cart</h1>
+                <div id="cartItems"></div>
+                <div id="cartSummary" style="display:none;">
+                    <p><strong>Total: $<span id="cartTotal">0.00</span></strong></p>
+                    <button class="btn btn-primary" id="checkoutBtn">Checkout</button>
+                </div>
+                <p id="emptyCartMsg" style="display:none;">Your cart is empty. <a href="shop.html">Continue shopping →</a></p>
+                <p id="checkoutMsg" style="display:none;" class="form-message"></p>
+            </div>
+        </section>
+    </main>
+
+    <!-- ====== FOOTER ====== -->
+    <footer class="site-footer">
+        <div class="container footer-inner">
+            <div>
+                <h4>🐾 Paws & Claws</h4>
+                <p>Natural care for your best friends.</p>
+            </div>
+            <div>
+                <h5>Quick Links</h5>
+                <ul>
+                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div>
+                <h5>Contact</h5>
+                <p>hello@pawsandclaws.demo</p>
+                <p>+1 (555) 123-4567</p>
+                <div class="social-icons">🌐 🐦 📸</div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Inline script to build the cart page -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var cartItemsDiv = document.getElementById('cartItems');
+            var emptyMsg = document.getElementById('emptyCartMsg');
+            var summaryDiv = document.getElementById('cartSummary');
+            var totalSpan = document.getElementById('cartTotal');
+            var checkoutBtn = document.getElementById('checkoutBtn');
+            var checkoutMsg = document.getElementById('checkoutMsg');
+            var cart = getCart();
+
+            function renderCart() {
+                cart = getCart();
+                cartItemsDiv.innerHTML = '';
+                if (cart.length === 0) {
+                    emptyMsg.style.display = 'block';
+                    summaryDiv.style.display = 'none';
+                    checkoutMsg.style.display = 'none';
+                    return;
+                }
+                emptyMsg.style.display = 'none';
+                summaryDiv.style.display = 'block';
+                checkoutMsg.style.display = 'none';
+
+                var total = 0;
+                cart.forEach(function (item) {
+                    total += item.price * item.quantity;
+                    var itemDiv = document.createElement('div');
+                    itemDiv.className = 'cart-item';
+                    itemDiv.innerHTML =
+                        '<img src="' + item.image + '" alt="' + item.name + '" class="cart-item-img">' +
+                        '<div class="cart-item-info">' +
+                            '<h4>' + item.name + '</h4>' +
+                            '<p class="price">$' + item.price.toFixed(2) + ' each</p>' +
+                        '</div>' +
+                        '<div class="cart-item-qty">' +
+                            '<button class="qty-btn minus" data-id="' + item.id + '">−</button>' +
+                            '<span class="qty-num">' + item.quantity + '</span>' +
+                            '<button class="qty-btn plus" data-id="' + item.id + '">+</button>' +
+                        '</div>' +
+                        '<button class="btn btn-add remove-btn" data-id="' + item.id + '">Remove</button>';
+                    cartItemsDiv.appendChild(itemDiv);
+                });
+                totalSpan.textContent = total.toFixed(2);
+
+                // Attach event listeners
+                document.querySelectorAll('.qty-btn.minus').forEach(function (btn) {
+                    btn.addEventListener('click', function () {
+                        var id = parseInt(btn.getAttribute('data-id'));
+                        var item = cart.find(function (i) { return i.id === id; });
+                        if (item) {
+                            updateQuantity(id, item.quantity - 1);
+                            renderCart();
+                        }
+                    });
+                });
+                document.querySelectorAll('.qty-btn.plus').forEach(function (btn) {
+                    btn.addEventListener('click', function () {
+                        var id = parseInt(btn.getAttribute('data-id'));
+                        var item = cart.find(function (i) { return i.id === id; });
+                        if (item) {
+                            updateQuantity(id, item.quantity + 1);
+                            renderCart();
+                        }
+                    });
+                });
+                document.querySelectorAll('.remove-btn').forEach(function (btn) {
+                    btn.addEventListener('click', function () {
+                        var id = parseInt(btn.getAttribute('data-id'));
+                        removeFromCart(id);
+                        renderCart();
+                    });
+                });
+            }
+
+            // Initial render
+            renderCart();
+
+            // Checkout
+            checkoutBtn.addEventListener('click', function () {
+                localStorage.removeItem('petCart');
+                updateCartBadge();
+                cart = [];
+                cartItemsDiv.innerHTML = '';
+                summaryDiv.style.display = 'none';
+                emptyMsg.style.display = 'none';
+                checkoutMsg.style.display = 'block';
+                checkoutMsg.textContent = 'Thank you! Your order has been placed (demo).';
+            });
+        });
+    </script>
+</body>
+</html>

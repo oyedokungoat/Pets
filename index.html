@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paws & Claws Pet Store</title>
+
+    <!-- Google Fonts: Nunito (headings) + Lato (body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;800&family=Lato:ital@0;1&display=swap" rel="stylesheet">
+
+    <!-- Our stylesheet -->
+    <link rel="stylesheet" href="css/main.css">
+
+    <!-- Our JavaScript (defer = run after page loads) -->
+    <script defer src="js/main.js"></script>
+</head>
+<body>
+    <!-- ====== HEADER ====== -->
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="index.html" class="logo">🐾 Paws & Claws</a>
+            <nav class="main-nav" id="mainNav">
+                <ul>
+                    <li><a href="index.html" class="active">Home</a></li>
+                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <!-- View mode toggle -->
+                <div class="view-toggle" id="viewToggle">
+                    <button data-view="auto" class="active">Auto</button>
+                    <button data-view="mobile">📱</button>
+                    <button data-view="tablet">📟</button>
+                    <button data-view="desktop">🖥️</button>
+                </div>
+                <a href="cart.html" class="cart-icon" aria-label="Cart">
+                    🛒 <span class="cart-badge" id="cartBadge">0</span>
+                </a>
+                <!-- Mobile menu button -->
+                <button class="menu-toggle" id="menuToggle" aria-label="Menu">☰</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ====== HERO ====== -->
+    <section class="hero">
+        <div class="container hero-content">
+            <div class="hero-text">
+                <h1>Everything Your Best Friend Needs</h1>
+                <p>Quality food, toys, and accessories for wagging tails and purring hearts.</p>
+                <div class="hero-cta">
+                    <a href="shop.html" class="btn btn-primary">Shop All</a>
+                    <a href="about.html" class="btn btn-secondary">Our Story</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="assets/images/hero-pets.svg" alt="Happy pets" width="400" height="400">
+            </div>
+        </div>
+    </section>
+
+    <!-- ====== FEATURED PRODUCTS ====== -->
+    <section class="featured-products">
+        <div class="container">
+            <h2>Popular Picks</h2>
+            <div class="product-grid">
+                <div class="product-card">
+                    <img src="assets/images/product-placeholder.png" alt="Product">
+                    <h3>Cozy Cat Bed</h3>
+                    <p class="price">$24.99</p>
+                    <button class="btn btn-add">Add to Cart</button>
+                </div>
+                <div class="product-card">
+                    <img src="assets/images/product-placeholder.png" alt="Product">
+                    <h3>Durable Dog Chew</h3>
+                    <p class="price">$12.99</p>
+                    <button class="btn btn-add">Add to Cart</button>
+                </div>
+                <div class="product-card">
+                    <img src="assets/images/product-placeholder.png" alt="Product">
+                    <h3>Bird Swing Toy</h3>
+                    <p class="price">$8.99</p>
+                    <button class="btn btn-add">Add to Cart</button>
+                </div>
+                <div class="product-card">
+                    <img src="assets/images/product-placeholder.png" alt="Product">
+                    <h3>Fish Tank Decor</h3>
+                    <p class="price">$15.49</p>
+                    <button class="btn btn-add">Add to Cart</button>
+                </div>
+            </div>
+            <a href="shop.html" class="view-all">View All Products →</a>
+        </div>
+    </section>
+
+    <!-- ====== CATEGORIES ====== -->
+    <section class="categories">
+        <div class="container">
+            <h2>Shop by Pet</h2>
+            <div class="category-grid">
+                <a href="shop.html?category=dogs" class="category-card">
+                    <span class="cat-icon">🐶</span>
+                    <h3>Dogs</h3>
+                </a>
+                <a href="shop.html?category=cats" class="category-card">
+                    <span class="cat-icon">🐱</span>
+                    <h3>Cats</h3>
+                </a>
+                <a href="shop.html?category=birds" class="category-card">
+                    <span class="cat-icon">🐦</span>
+                    <h3>Birds</h3>
+                </a>
+                <a href="shop.html?category=fish" class="category-card">
+                    <span class="cat-icon">🐟</span>
+                    <h3>Fish</h3>
+                </a>
+                <a href="shop.html?category=small-pets" class="category-card">
+                    <span class="cat-icon">🐹</span>
+                    <h3>Small Pets</h3>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====== PET WELLNESS TIP ====== -->
+    <section class="wellness-tip">
+        <div class="container">
+            <div class="tip-card">
+                <span class="tip-icon">💡</span>
+                <p id="dailyTip">Keep fresh water available for your pets at all times.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====== NEWSLETTER ====== -->
+    <section class="newsletter">
+        <div class="container newsletter-inner">
+            <h2>Get Treats in Your Inbox</h2>
+            <form id="newsletterForm">
+                <input type="email" placeholder="Your email address" required>
+                <button type="submit" class="btn btn-primary">Subscribe</button>
+            </form>
+            <p class="form-message" id="newsletterMsg"></p>
+        </div>
+    </section>
+
+    <!-- ====== TESTIMONIALS ====== -->
+    <section class="testimonials">
+        <div class="container">
+            <h2>Happy Pet Parents</h2>
+            <div class="testimonial-grid">
+                <blockquote class="testimonial">
+                    <p>“My cat loves the bed! Fast delivery and great quality.”</p>
+                    <cite>— Luna’s human</cite>
+                    <span class="stars">⭐⭐⭐⭐⭐</span>
+                </blockquote>
+                <blockquote class="testimonial">
+                    <p>“Best chew toys ever. My puppy is obsessed.”</p>
+                    <cite>— Max’s dad</cite>
+                    <span class="stars">⭐⭐⭐⭐⭐</span>
+                </blockquote>
+                <blockquote class="testimonial">
+                    <p>“The bird swing is perfect. Highly recommend this store!”</p>
+                    <cite>— Kiwi’s mom</cite>
+                    <span class="stars">⭐⭐⭐⭐⭐</span>
+                </blockquote>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====== FOOTER ====== -->
+    <footer class="site-footer">
+        <div class="container footer-inner">
+            <div>
+                <h4>🐾 Paws & Claws</h4>
+                <p>Natural care for your best friends.</p>
+            </div>
+            <div>
+                <h5>Quick Links</h5>
+                <ul>
+                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div>
+                <h5>Contact</h5>
+                <p>hello@pawsandclaws.demo</p>
+                <p>+1 (555) 123-4567</p>
+                <div class="social-icons">🌐 🐦 📸</div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
